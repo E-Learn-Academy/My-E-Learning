@@ -1,28 +1,42 @@
+
 import React, { createContext, useState, useEffect } from 'react';
-import authService from '../services/authService';
+import authService from '../services/authService'; 
 
 export const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    const userData = localStorage.getItem('user');
-    if (token && userData) {
-      setUser(JSON.parse(userData));
+    try {
+      const token = localStorage.getItem('token');
+      const userDataString = localStorage.getItem('user');
+
+      
+      if (token && userDataString && userDataString !== 'undefined' && userDataString !== 'null') {
+        const userData = JSON.parse(userDataString);
+        setUser(userData);
+      }
+
+    } catch (error) {
+      console.error("Failed to parse user data from localStorage", error);
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      setUser(null);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }, []);
 
   const login = async (email, password) => {
     const response = await authService.login(email, password);
     const { token, user } = response.data;
+    
     localStorage.setItem('token', token);
-    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('user', JSON.stringify(user)); 
+    
     setUser(user);
-    console.log('User logged in:', user);
   };
 
   const logout = () => {
@@ -39,7 +53,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   if (loading) {
-    return <div>Loading...</div>; 
+    return <div>Loading...</div>;
   }
 
   return (
