@@ -1,6 +1,5 @@
 import axios from 'axios';
 
-
 const API_URL = 'https://edu-master-delta.vercel.app/auth'; 
 
 const register = (fullName, email, password, phoneNumber, classLevel) => {
@@ -11,10 +10,16 @@ const login = (email, password) => {
   return axios.post(`${API_URL}/login`, { email, password });
 };
 
-
-// const logout = () => { ... };
+const getUserProfile = (token) => {
+  return axios.get(`${API_URL}/profile`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+};
 
 export default {
   register,
   login,
+  getUserProfile,
 };
