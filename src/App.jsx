@@ -13,12 +13,12 @@ function App() {
     <>
       <AuthProvider>
         <Navbar/>
-    <Routes>
-      <Route path='/' element={<Home/>}></Route>
-      <Route path="/home" element={<Home />} />
+          <Routes>
+            <Route path='/' element={<Home/>}></Route>
+            <Route path="/home" element={<Home />} />
             <Route path='/loginPage' element={<LoginPage/>}></Route>
-      <Route path='/registerPage' element={<RegisterPage/>}></Route>
-    </Routes>
+            <Route path='/registerPage' element={<RegisterPage/>}></Route>
+          </Routes>
       </AuthProvider>
     </>
   )

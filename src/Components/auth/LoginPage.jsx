@@ -1,6 +1,6 @@
 
-import React, { useState } from 'react';
-import { useAuth } from '../hooks/useAuth';
+import  { useState } from 'react';
+import { useAuth } from '../hooks/useAuth.js';
 import { useNavigate, Link } from 'react-router-dom';
 import { LockClosedIcon, EnvelopeIcon } from '@heroicons/react/24/solid';
 
@@ -23,7 +23,7 @@ const LoginPage = () => {
     }
     try {
       await login(email, password);
-      navigate('/dashboard');
+      navigate('/home');
     } catch (err) {
       const errorMessage = err.response?.data?.message || 'Login failed. Please check your credentials.';
       setError(errorMessage);
