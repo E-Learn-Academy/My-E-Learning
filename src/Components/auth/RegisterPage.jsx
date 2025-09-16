@@ -73,9 +73,9 @@ const RegisterPage = () => {
 
   // --- JSX ---
   return (
-   
-    <div className="flex items-center justify-center min-h-screen bg-[#1f2041] text-white py-12">
-      
+
+    <div className="flex items-center justify-center mt-10 min-h-screen bg-[#1f2041] text-white py-12">
+
       <div className="w-full max-w-lg px-8 py-10 mx-4 bg-[#2c2d5c] rounded-lg shadow-2xl">
         
         
