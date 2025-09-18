@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Exam() {
   const [exams, setExams] = useState([]);
+
+  const navigat= useNavigate()
   const getAllExams = async () => {
     const { data } = await axios.get(
       "https://edu-master-delta.vercel.app/exam",
@@ -22,19 +25,19 @@ export default function Exam() {
 
   const openExam = (id) => {
     //const rex= axios.get(``);
-
+navigat(`/ExamDetails/${id}`)
     console.log(id);
   };
 
   return (
     <>
-      <Navbar />
       <div className="min-h-screen bg-[#0d1b2a] text-white p-10">
         <h1 className="text-3xl font-bold mb-8 text-center">
           📚 Available Exams
         </h1>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6
+        ">
           {exams.map((exam) => (
             <div
               key={exam._id}
@@ -62,7 +65,6 @@ export default function Exam() {
           ))}
         </div>
       </div>
-      <Footer />
     </>
   );
 }
