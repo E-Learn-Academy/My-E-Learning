@@ -7,7 +7,7 @@ import { UserIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/solid';
 export default function Navbar() {
   const { user, isAuthenticated, logout } = useAuth();
   const navigate = useNavigate();
- 
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -35,7 +35,7 @@ export default function Navbar() {
         setIsMobile(true);
       } else {
         setIsMobile(false);
-        setIsMenuOpen(false); 
+        setIsMenuOpen(false);
       }
     };
 
@@ -82,6 +82,10 @@ export default function Navbar() {
                 Courses
                 <div className='nav-underline'></div>
               </li>
+                <li className='nav-item relative cursor-pointer'>
+                <Link to="/Exam">Exam</Link>
+                <div className='nav-underline'></div>
+              </li>
               <li className='nav-item relative cursor-pointer'>
                 Contact
                 <div className='nav-underline'></div>
@@ -101,7 +105,7 @@ export default function Navbar() {
                       {user?.fullName || user?.email?.split('@')[0] || 'User'}
                     </span>
                   </div>
-                  
+
                   {/* Logout Button */}
                   <button
                     onClick={handleLogout}
