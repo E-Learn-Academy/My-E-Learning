@@ -1,19 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthenticationContext";
 
 export default function Exam() {
   const [exams, setExams] = useState([]);
 
-  const navigat= useNavigate()
+  const { user } = useContext(AuthContext);
+  const token = localStorage.getItem("token");
+
+  const navigat = useNavigate();
   const getAllExams = async () => {
     const { data } = await axios.get(
       "https://edu-master-delta.vercel.app/exam",
       {
         headers: {
-          token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhhbmFhLmhvc3NpZW44OEBnbWFpbC5jb20iLCJfaWQiOiI2OGM5YTAwMTI4MzAzYTllMTBkYmZmNDIiLCJpYXQiOjE3NTgxODYxNTEsImV4cCI6MTc1ODI3MjU1MX0.0s_oiXbqDFwDW3OYHwfeIiLAMSWp9Mf1vaaQ9DOmbfY`,
+          token: `${token}`,
         },
       }
     );
@@ -24,8 +28,7 @@ export default function Exam() {
   }, []);
 
   const openExam = (id) => {
-    //const rex= axios.get(``);
-navigat(`/ExamDetails/${id}`)
+    navigat(`/ExamDetails/${id}`);
     console.log(id);
   };
 
@@ -36,8 +39,10 @@ navigat(`/ExamDetails/${id}`)
           📚 Available Exams
         </h1>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6
-        ">
+        <div
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6
+        "
+        >
           {exams.map((exam) => (
             <div
               key={exam._id}
@@ -58,7 +63,10 @@ navigat(`/ExamDetails/${id}`)
                 {new Date(exam.endDate).toLocaleDateString()}
               </p>
 
-              <button onClick={()=>openExam(exam._id)} className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg mt-3">
+              <button
+                onClick={() => openExam(exam._id)}
+                className="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg mt-3"
+              >
                 Start Exam
               </button>
             </div>

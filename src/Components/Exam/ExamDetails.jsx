@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { AuthContext } from "../context/AuthenticationContext";
 
 export default function ExamDetails() {
   const { _id } = useParams();
   const [examData, setexamData] = useState([]);
   const navigate= useNavigate();
+
+   const { user } = useContext(AuthContext);
+    const token = localStorage.getItem("token");
+
 
   const getExamDetails = async () => {
     try {
@@ -15,8 +20,7 @@ export default function ExamDetails() {
         `https://edu-master-delta.vercel.app/exam/get/${_id}`,
         {
           headers: {
-            token: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImhhbmFhLmhvc3NpZW44OEBnbWFpbC5jb20iLCJfaWQiOiI2OGM5YTAwMTI4MzAzYTllMTBkYmZmNDIiLCJpYXQiOjE3NTgxODYxNTEsImV4cCI6MTc1ODI3MjU1MX0.0s_oiXbqDFwDW3OYHwfeIiLAMSWp9Mf1vaaQ9DOmbfY`,
-          },
+            token: `${token}` },
         }
       );
       console.log(data.data);
