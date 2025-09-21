@@ -95,7 +95,7 @@ export default function Navbar() {
                   {/* User Info */}
                   <div className="flex items-center gap-2">
                     <div className="w-8 h-8 bg-[#e85a4f] rounded-full flex items-center justify-center">
-                      <UserIcon className="w-5 h-5 text-white" />
+                     <Link to="/profile"><UserIcon className="w-5 h-5 text-white" /></Link> 
                     </div>
                     <span className="text-sm font-medium">
                       {user?.fullName || user?.email?.split('@')[0] || 'User'}

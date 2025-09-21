@@ -6,6 +6,7 @@ import LoginPage from './Components/auth/LoginPage';
 import RegisterPage from './Components/auth/RegisterPage';
 import { AuthProvider } from './Components/context/AuthenticationContext.jsx';
 import Navbar from './Components/Navbar/Navbar';
+import { Profile } from './Pages/Profile.jsx';
 
 function App() {
 
@@ -14,10 +15,11 @@ function App() {
       <AuthProvider>
         <Navbar/>
           <Routes>
-            <Route path='/' element={<Home/>}></Route>
+            <Route path='/' element={<Home/>}/>
             <Route path="/home" element={<Home />} />
-            <Route path='/loginPage' element={<LoginPage/>}></Route>
-            <Route path='/registerPage' element={<RegisterPage/>}></Route>
+            <Route path='/loginPage' element={<LoginPage/>}/>
+            <Route path='/registerPage' element={<RegisterPage/>}/>
+            <Route path='/profile' element={<Profile/>}/>
           </Routes>
       </AuthProvider>
     </>
