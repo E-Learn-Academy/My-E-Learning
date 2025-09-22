@@ -25,7 +25,6 @@ export default function Lessons(){
         }
     }, [token]);*/
     useEffect(() => {
-        console.log("Token in useEffect:", token);
         if (token) {
             lessonsService.getLessons(token)
             .then((res) => {

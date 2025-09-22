@@ -12,13 +12,17 @@ export default function Card({lesson}){
     const goToPayLesson = () => {
         navigate(`/lesson/pay/${lesson.id}`);
     };
+    const videoId = (url) => {
+        const urlObj = new URL(url);
+        return urlObj.searchParams.get("v");
+    };
     return(
         <>
         <div onClick={ lesson.isPaid ? goToPayLesson : goToLesson } className="bg-[#fff] shadow-sm rounded-[15px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 overflow-hidden hover:scale-[98%] transition duration-300">
             <iframe
                 width="100%"
                 height="240"
-                src={lesson.video}
+                src={`https://www.youtube.com/embed/${videoId(lesson.video)}`}
                 title="YouTube video player"
                 frameBorder="0"
                 allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
