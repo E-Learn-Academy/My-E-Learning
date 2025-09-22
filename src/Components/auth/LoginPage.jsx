@@ -37,8 +37,13 @@ const LoginPage = () => {
       <div className="w-full max-w-md px-8 py-10 mx-4 bg-[#2c2d5c] rounded-lg shadow-2xl">
         
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white">Welcome Back!</h1>
-          <p className="text-gray-300 mt-2">Log in to continue your learning journey.</p>
+         <div className="text-center mb-8">
+          
+          <h1 className="text-3xl font-bold text-white animate__animated animate__fadeInDown animate__slow">
+            Welcome Back!
+          </h1>
+          <p className="text-gray-300 mt-2 animate__animated animate__fadeInDown animate__slow">Log in to continue your learning journey.</p>
+        </div>
         </div>
 
         {error && (
