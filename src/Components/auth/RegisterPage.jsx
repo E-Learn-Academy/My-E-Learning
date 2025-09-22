@@ -11,7 +11,7 @@ import {
 } from '@heroicons/react/24/solid';
 
 const RegisterPage = () => {
-  // --- State Management ---
+
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -60,9 +60,8 @@ const RegisterPage = () => {
 
     try {
       await authService.register(fullName, email, password, phoneNumber, classLevel);
- 
-      navigate('/loginPage', { state: { successMessage: 'Account created successfully! You can now log in.' } });
-      
+
+      navigate('/loginpage', { state: { successMessage: 'Account created successfully! You can now log in.' } });
     } catch (err) {
    
       const errorMessage = err.response?.data?.message || 'An error occurred during registration. Please try again.';
@@ -72,18 +71,17 @@ const RegisterPage = () => {
     }
   };
 
-  // --- JSX ---
   return (
-   
-    <div className="flex items-center justify-center min-h-screen bg-[#1f2041] text-white py-12">
-      
+
+    <div className="flex items-center justify-center mt-10 min-h-screen bg-[#1f2041] text-white py-12">
+
       <div className="w-full max-w-lg px-8 py-10 mx-4 bg-[#2c2d5c] rounded-lg shadow-2xl">
         
         
         <div className="text-center mb-8">
-          
-          <h1 className="text-3xl font-bold text-white">Create a New Account</h1>
-          <p className="text-gray-300 mt-2">Join our learning platform today.</p>
+
+          <h1 className="text-3xl font-bold text-white animate__animated animate__fadeInDown animate__slow">Create a New Account</h1>
+          <p className="text-gray-300 mt-2 animate__animated animate__fadeInDown animate__slow">Join our learning platform today.</p>
         </div>
 
         {/* Error Message */}
