@@ -79,7 +79,7 @@ export default function Navbar() {
                 <div className='nav-underline'></div>
               </li>
               <li className='nav-item relative cursor-pointer'>
-                Courses
+                <Link to="/lessons">Courses</Link>
                 <div className='nav-underline'></div>
               </li>
               <li className='nav-item relative cursor-pointer'>
@@ -136,7 +136,7 @@ export default function Navbar() {
               <div className='nav-underline'></div>
             </li>
             <li className='nav-item relative cursor-pointer' onClick={() => setIsMenuOpen(!isMenuOpen)}>
-              Courses
+              <Link to="/lessons">Courses</Link>
               <div className='nav-underline'></div>
             </li>
             <li className='nav-item relative cursor-pointer' onClick={() => setIsMenuOpen(!isMenuOpen)}>
