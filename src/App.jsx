@@ -6,6 +6,8 @@ import LoginPage from './Components/auth/LoginPage';
 import RegisterPage from './Components/auth/RegisterPage';
 import { AuthProvider } from './Components/context/AuthenticationContext.jsx';
 import Navbar from './Components/Navbar/Navbar';
+import ProtectedRoute from './Components/ProtectedRoute.jsx';
+import Dashboard from './Components/dashboard/Dashboard.jsx';
 
 function App() {
 
@@ -18,6 +20,14 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path='/loginPage' element={<LoginPage/>}></Route>
             <Route path='/registerPage' element={<RegisterPage/>}></Route>
+             <Route 
+        path="/dashboard" 
+          element={
+            <ProtectedRoute requiredRoles={["super-admin", "admin"]}>
+              <Dashboard />
+            </ProtectedRoute>
+          } 
+        />
           </Routes>
       </AuthProvider>
     </>

@@ -105,7 +105,7 @@ export default function Navbar() {
                   {/* Logout Button */}
                   <button
                     onClick={handleLogout}
-                    className="flex items-center gap-2 bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg transition-colors duration-300"
+                    className="flex items-center gap-2 bg-red-600 hover:bg-red-700 px-4 py-2 cursor-pointer rounded-lg transition-colors duration-300"
                   >
                     <ArrowRightOnRectangleIcon className="w-4 h-4" />
                     <span>Logout</span>
@@ -115,7 +115,7 @@ export default function Navbar() {
                 /* Login Button Only */
                 <button
                   onClick={handleLogin}
-                  className="bg-[#e85a4f] hover:bg-[#d94a3f] px-6 py-2 rounded-lg transition-colors duration-300 font-medium"
+                  className="bg-[#e85a4f] hover:bg-[#d94a3f] px-6 py-2 rounded-lg cursor-pointer transition-colors duration-300 font-medium"
                 >
                   Login
                 </button>
