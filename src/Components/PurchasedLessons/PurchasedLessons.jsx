@@ -1,48 +1,30 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import altImg from "../images/menu_bar.png";
+import altImg from "../images/menu_bar.png"; // صورة افتراضية للكورس لو مفيش صورة
 
 const PurchasedLessons = () => {
   const [lessons, setLessons] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchLessons = async () => {
       try {
         const token = localStorage.getItem("token");
+        if (!token) return console.error("No token found!");
+
         const response = await axios.get(
           "https://edu-master-psi.vercel.app/lesson/my/purchased",
-          {
-            headers: { token },
-          }
+          { headers: { token } }
         );
-        console.log("API Lessons Data:", response.data);
 
+        console.log("API Lessons Data:", response.data);
         setLessons(response.data);
       } catch (err) {
         console.error("API Error:", err.response?.data || err.message);
-        // Fake data fallback
-        setLessons([
-          {
-            _id: "1",
-            title: "Math Lesson 1",
-            description: "Learn the basics of Algebra step by step.",
-            progress: 40,
-          },
-          {
-            _id: "2",
-            title: "Science Lesson 2",
-            description: "Introduction to Physics with fun experiments.",
-            progress: 70,
-          },
-          {
-            _id: "3",
-            title: "English Lesson 3",
-            description: "Master grammar and sentence building.",
-            progress: 20,
-          },
-        ]);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -52,6 +34,14 @@ const PurchasedLessons = () => {
   const handleContinue = (id) => {
     navigate(`/lessons/${id}`);
   };
+
+  if (loading) {
+    return (
+      <div className="bg-[#1f2641] min-h-screen flex justify-center items-center text-white">
+        Loading purchased lessons...
+      </div>
+    );
+  }
 
   return (
     <div className="bg-[#1f2641] min-h-screen pt-28 px-6 text-white">
@@ -74,7 +64,6 @@ const PurchasedLessons = () => {
                 className="w-56 h-40 object-cover"
               />
 
-              {/* desc*/}
               <div className="flex-1 p-6 flex flex-col justify-between">
                 <div>
                   <h2 className="text-2xl font-semibold">{lesson.title}</h2>
@@ -83,7 +72,6 @@ const PurchasedLessons = () => {
                   </p>
                 </div>
 
-                {/* progress */}
                 <div className="mt-4 flex items-center justify-between">
                   <div className="w-full max-w-xs">
                     <div className="w-full bg-gray-700 rounded-full h-3">

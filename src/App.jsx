@@ -6,6 +6,9 @@ import LoginPage from './Components/auth/LoginPage';
 import RegisterPage from './Components/auth/RegisterPage';
 import { AuthProvider } from './Components/context/AuthenticationContext.jsx';
 import Navbar from './Components/Navbar/Navbar';
+import PurchasedLessonsPage from './Components/PurchasedLessons/PurchasedLessonsPage.jsx';
+import Courses from './Components/Courses.jsx';
+
 
 function App() {
 
@@ -18,6 +21,8 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path='/loginPage' element={<LoginPage/>}></Route>
             <Route path='/registerPage' element={<RegisterPage/>}></Route>
+            <Route path='/courses' element={<Courses/>}></Route>
+            <Route path='/PurchasedLessonsPage' element={<PurchasedLessonsPage/>}></Route>
           </Routes>
       </AuthProvider>
     </>
