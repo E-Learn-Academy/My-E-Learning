@@ -8,7 +8,7 @@ function BtnDeleteUser() {
   const [detete, setDelete] = useState(false);
   const dispatch = useDispatch();
 
-  // --- delete user ---
+  // --- delete user ----
   const handleDelete = async () => {
     try {
       const res = await dispatch(deleteUser()).unwrap();
