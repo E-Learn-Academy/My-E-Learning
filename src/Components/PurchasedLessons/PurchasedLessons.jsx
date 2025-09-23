@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import altImg from "../images/menu_bar.png"; // صورة افتراضية للكورس لو مفيش صورة
 
 const PurchasedLessons = () => {
   const [lessons, setLessons] = useState([]);
@@ -9,27 +8,31 @@ const PurchasedLessons = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchLessons = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        if (!token) return console.error("No token found!");
+  const fetchLessons = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) return console.error("No token found!");
 
-        const response = await axios.get(
-          "https://edu-master-psi.vercel.app/lesson/my/purchased",
-          { headers: { token } }
-        );
+      setLoading(true);
+      const response = await axios.get(
+        "https://edu-master-psi.vercel.app/lesson/my/purchased",
+        { headers: { token } }
+      );
 
-        console.log("API Lessons Data:", response.data);
-        setLessons(response.data);
-      } catch (err) {
-        console.error("API Error:", err.response?.data || err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+      console.log("API Lessons Data:", response.data);
 
-    fetchLessons();
-  }, []);
+   
+      setLessons(response.data.data);
+    } catch (err) {
+      console.error("API Error:", err.response?.data || err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchLessons();
+}, []);
+
 
   const handleContinue = (id) => {
     navigate(`/lessons/${id}`);
@@ -52,17 +55,27 @@ const PurchasedLessons = () => {
       {lessons.length === 0 ? (
         <p className="text-center text-gray-400">No purchased lessons found.</p>
       ) : (
-        <div className="flex flex-col gap-8 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {lessons.map((lesson) => (
             <div
               key={lesson._id}
-              className="flex bg-[#2c2d5c] rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl hover:scale-[1.01] transition duration-300"
+              className="bg-[#2c2d5c] rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl hover:scale-[1.01] transition duration-300 flex flex-col"
             >
-              <img
-                src={lesson.image || altImg}
-                alt={lesson.title}
-                className="w-56 h-40 object-cover"
-              />
+              <div className="w-full h-48 bg-black">
+                {lesson.video ? (
+                  <video
+                    src={lesson.video}
+                    controls
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <video
+                    src="https://www.w3schools.com/html/mov_bbb.mp4"
+                    controls
+                    className="w-full h-full object-cover"
+                  />
+                )}
+              </div>
 
               <div className="flex-1 p-6 flex flex-col justify-between">
                 <div>
