@@ -59,13 +59,17 @@ export const AuthProvider = ({ children }) => {
     console.log('User logged out');
   };
 
+ 
+
   const authContextValue = {
-    user,
-    isAuthenticated: !!user,
-    login,
-    logout,
-    loading,
-  };
+  user,
+  token: localStorage.getItem('token'), //////////
+  isAuthenticated: !!user,
+  login,
+  logout,
+  loading,
+};
+
 
   return (
     <AuthContext.Provider value={authContextValue}>
