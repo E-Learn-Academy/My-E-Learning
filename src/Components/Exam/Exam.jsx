@@ -13,14 +13,20 @@ export default function Exam() {
 
   const navigat = useNavigate();
   const getAllExams = async () => {
+
+
+
     const { data } = await axios.get(
-      "https://edu-master-delta.vercel.app/exam",
+      "https://edu-master-psi.vercel.app/exam",
       {
         headers: {
           token: `${token}`,
         },
       }
     );
+
+
+
     setExams(data.data);
   };
   useEffect(() => {

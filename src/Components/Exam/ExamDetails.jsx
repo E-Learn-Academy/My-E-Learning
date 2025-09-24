@@ -8,19 +8,20 @@ import { AuthContext } from "../context/AuthenticationContext";
 export default function ExamDetails() {
   const { _id } = useParams();
   const [examData, setexamData] = useState([]);
-  const navigate= useNavigate();
+  const navigate = useNavigate();
 
-   const { user } = useContext(AuthContext);
-    const token = localStorage.getItem("token");
+  const { user } = useContext(AuthContext);
+  const token = localStorage.getItem("token");
 
-
+  //get exam by id
   const getExamDetails = async () => {
     try {
       const { data } = await axios.get(
-        `https://edu-master-delta.vercel.app/exam/get/${_id}`,
+        `https://edu-master-psi.vercel.app/exam/get/${_id}`,
         {
           headers: {
-            token: `${token}` },
+          token: `${token}`,
+          },
         }
       );
       console.log(data.data);
@@ -34,32 +35,48 @@ export default function ExamDetails() {
     getExamDetails();
   }, []);
 
-  const [answers, setAnswers] = useState({});
+  const [answer, setAnswer] = useState({});
   const [score, setScore] = useState(null);
 
-  const handleChange = (questionId, value) => {
-    setAnswers({ ...answers, [questionId]: value });
+     const handleChange = (questionId, value) => {
+    setAnswer((prev) => ({ ...prev, [questionId]: value }));
   };
 
-  const handleSubmit = () => {
-    let totalScore = 0;
-    let maxScore = 0;
-    // examData.questions.forEach((q) => {
-    //   maxScore += q.points;
-    //   if (answers[q._id] === q.correctAnswer) {
-    //     totalScore += q.points;
-    //   }
-    // });
 
-    examData.questions.forEach((q) => {
-      maxScore += q.points;
-      if (answers[q._id] === q.correctAnswer) totalScore += q.points;
-    });
 
-    setScore({ totalScore, maxScore });
-    navigate("/result", { state: { totalScore, maxScore } });
 
-  };
+
+  const handleSubmit = async() => {
+  const answers = Object.entries(answer).map(
+    ([questionId, selectedAnswer]) => ({
+      questionId,
+      selectedAnswer,
+    })
+  );
+
+  console.log("Formatted answer:", answers);
+console.log("Submitting to:", `https://edu-master-psi.vercel.app/studentExam/submit/${_id}`);
+console.log("Body:", { answer: answers });
+console.log("Token:", token);
+  try {
+    const { data } = await axios.post(
+      `https://edu-master-psi.vercel.app/studentExam/submit/${_id}`,
+       {answers} ,
+      {
+        headers: {
+          token: `${token}`,
+        },
+      }
+    );
+
+    console.log("Submit Response:", data);
+
+   // navigate("/result", { state: { result: data } });
+
+  } catch (error) {
+    console.error("Error submitting exam:", error);
+  }
+};
 
   return (
     <>
@@ -101,19 +118,20 @@ export default function ExamDetails() {
             </div>
           ))}
 
-           <button
-           className="w-full items-center  bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg transition-colors duration-300"
+          <button
+            className="w-full items-center  bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg transition-colors duration-300"
+            onClick={handleSubmit}
+            style={{ padding: "10px 20px" }}
+          >
+            Submit
+          </button>
 
-           onClick={handleSubmit} style={{ padding: "10px 20px" }}>
-        Submit
-      </button>
-
-      {score && (
-        <div style={{ marginTop: "20px", fontWeight: "bold" }}>
-          نتيجتك: {score.totalScore} / {score.maxScore} نقطة
+          {/* {score && (
+            <div style={{ marginTop: "20px", fontWeight: "bold" }}>
+              نتيجتك: {score.totalScore} / {score.maxScore} نقطة
+            </div>
+          )} */}
         </div>
-      )}
-      </div>
       </div>
     </>
   );

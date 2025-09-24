@@ -10,6 +10,8 @@ import Exam from './Components/Exam/Exam.jsx';
 import Footer from './Components/Footer/Footer.jsx';
 import ExamDetails from './Components/Exam/ExamDetails.jsx';
 import Result from './Components/Exam/Result.jsx';
+import ListExam from './Components/AdminExam/ListExam.jsx';
+import AddExam from './Components/AdminExam/AddExam.jsx';
 
 function App() {
 
@@ -25,6 +27,10 @@ function App() {
             <Route path="/Result" element={<Result />} />
             <Route path='/loginPage' element={<LoginPage/>}></Route>
             <Route path='/registerPage' element={<RegisterPage/>}></Route>
+
+              <Route path='/ListExam' element={<ListExam/>}></Route>
+           <Route path='/AddExam' element={<AddExam/>}></Route>
+
           </Routes>
           <Footer/>
       </AuthProvider>
