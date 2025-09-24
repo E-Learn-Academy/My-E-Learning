@@ -52,7 +52,12 @@ const RegisterPage = () => {
 
     try {
       await authService.register(fullName, email, password, phoneNumber, classLevel);
+
+ 
+      navigate('/loginPage', { state: { successMessage: 'Account created successfully! You can now log in.' } });
+
       navigate("/loginpage", { state: { successMessage: "Account created successfully! You can now log in." } });
+
     } catch (err) {
       const errorMessage = err.response?.data?.message || "An error occurred during registration. Please try again.";
       setError(errorMessage);
