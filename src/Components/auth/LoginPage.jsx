@@ -12,18 +12,30 @@ const LoginPage = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+ const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
+    
     if (!email || !password) {
       setError('Please enter both email and password.');
       setLoading(false);
       return;
     }
+    
     try {
       await login(email, password);
-      navigate('/home');
+      
+      const userData = JSON.parse(localStorage.getItem('user'));
+      console.log('User role after login:', userData?.role);
+      
+      if (userData?.role === 'super-admin') {
+        console.log('Redirecting to dashboard for super-admin');
+        navigate('/dashboard');
+      } else {
+        console.log('Redirecting to home for student');
+        navigate('/home');
+      }
     } catch (err) {
       const errorMessage = err.response?.data?.message || 'Login failed. Please check your credentials.';
       setError(errorMessage);
@@ -37,8 +49,13 @@ const LoginPage = () => {
       <div className="w-full max-w-md px-8 py-10 mx-4 bg-[#2c2d5c] rounded-lg shadow-2xl">
         
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-white">Welcome Back!</h1>
-          <p className="text-gray-300 mt-2">Log in to continue your learning journey.</p>
+         <div className="text-center mb-8">
+          
+          <h1 className="text-3xl font-bold text-white animate__animated animate__fadeInDown animate__slow">
+            Welcome Back!
+          </h1>
+          <p className="text-gray-300 mt-2 animate__animated animate__fadeInDown animate__slow">Log in to continue your learning journey.</p>
+        </div>
         </div>
 
         {error && (
@@ -78,7 +95,7 @@ const LoginPage = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#e85a4f] hover:bg-[#d94a3f] text-white font-bold py-3 px-4 rounded-md focus:outline-none focus:shadow-outline transition duration-300 disabled:bg-[#e85a4f]/50 disabled:cursor-not-allowed flex items-center justify-center"
+              className="w-full bg-[#e85a4f] hover:bg-[#d94a3f] text-white cursor-pointer font-bold py-3 px-4 rounded-md focus:outline-none focus:shadow-outline transition duration-300 disabled:bg-[#e85a4f]/50 disabled:cursor-not-allowed flex items-center justify-center"
             >
               {loading ? (
                 <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
