@@ -66,6 +66,25 @@ export default function Navbar() {
 
         {!isMobile && (
           <div className="flex items-center gap-8">
+
+            <ul className="flex items-center gap-12 text-lg">
+              <li className='nav-item relative cursor-pointer'>
+                <Link to="/">Home</Link>
+                <div className='nav-underline'></div>
+              </li>
+              <li className='nav-item relative cursor-pointer'>
+                About
+                <div className='nav-underline'></div>
+              </li>
+              <li className='nav-item relative cursor-pointer'>
+                <Link to="/lessons">Courses</Link>
+                <div className='nav-underline'></div>
+              </li>
+              <li className='nav-item relative cursor-pointer'>
+                Contact
+                <div className='nav-underline'></div>
+              </li>
+
             <ul className="flex items-center gap-12 text-lg pt-3">
               {" "}
               {menuItems.map((item) => (
@@ -77,6 +96,7 @@ export default function Navbar() {
                   <div className="nav-underline"></div>
                 </li>
               ))}
+
             </ul>
 
             <div className="flex items-center gap-4 ml-8">
@@ -90,9 +110,39 @@ export default function Navbar() {
                     <span>My Learning</span>
                   </button>
 
+
+        {/* Mobile Menu */}
+        {isMenuOpen && isMobile && (
+          <ul className="absolute top-24 right-0 w-64 flex flex-col items-center gap-6 bg-[#1f2641] text-lg p-6 rounded-lg shadow-lg border border-gray-600">
+            <li className='nav-item relative cursor-pointer' onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              <Link to="/">Home</Link>
+              <div className='nav-underline'></div>
+            </li>
+            <li className='nav-item relative cursor-pointer' onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              About
+              <div className='nav-underline'></div>
+            </li>
+            <li className='nav-item relative cursor-pointer' onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              <Link to="/lessons">Courses</Link>
+              <div className='nav-underline'></div>
+            </li>
+            <li className='nav-item relative cursor-pointer' onClick={() => setIsMenuOpen(!isMenuOpen)}>
+              Contact
+              <div className='nav-underline'></div>
+            </li>
+
+            {/* Auth Section - Mobile */}
+            <div className="w-full border-t border-gray-600 pt-4 mt-2">
+              {isAuthenticated ? (
+                <div className="space-y-4">
+                  <div className="flex items-center gap-3 justify-center">
+                    <div className="w-10 h-10 bg-[#e85a4f] rounded-full flex items-center justify-center">
+                      <UserIcon className="w-6 h-6 text-white" />
+
                   <div className="flex items-center gap-2">
                     <div className="w-8 h-8 bg-[#e85a4f] rounded-full flex items-center justify-center">
                      <Link to="/profile"><UserIcon className="w-5 h-5 text-white" /></Link> 
+
                     </div>
                     <span className="text-sm font-medium">
                       {user?.fullName || user?.email?.split("@")[0] || "User"}
