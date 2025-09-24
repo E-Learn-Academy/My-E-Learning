@@ -12,18 +12,30 @@ const LoginPage = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+ const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
+    
     if (!email || !password) {
       setError('Please enter both email and password.');
       setLoading(false);
       return;
     }
+    
     try {
       await login(email, password);
-      navigate('/home');
+      
+      const userData = JSON.parse(localStorage.getItem('user'));
+      console.log('User role after login:', userData?.role);
+      
+      if (userData?.role === 'super-admin') {
+        console.log('Redirecting to dashboard for super-admin');
+        navigate('/dashboard');
+      } else {
+        console.log('Redirecting to home for student');
+        navigate('/home');
+      }
     } catch (err) {
       const errorMessage = err.response?.data?.message || 'Login failed. Please check your credentials.';
       setError(errorMessage);
@@ -83,7 +95,7 @@ const LoginPage = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#e85a4f] hover:bg-[#d94a3f] text-white font-bold py-3 px-4 rounded-md focus:outline-none focus:shadow-outline transition duration-300 disabled:bg-[#e85a4f]/50 disabled:cursor-not-allowed flex items-center justify-center"
+              className="w-full bg-[#e85a4f] hover:bg-[#d94a3f] text-white cursor-pointer font-bold py-3 px-4 rounded-md focus:outline-none focus:shadow-outline transition duration-300 disabled:bg-[#e85a4f]/50 disabled:cursor-not-allowed flex items-center justify-center"
             >
               {loading ? (
                 <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">

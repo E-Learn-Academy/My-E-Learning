@@ -168,11 +168,13 @@ const RegisterPage = () => {
 
           {/* Submit Button */}
           <div className="mt-8 mb-6">
+
             <button
               type="submit"
               disabled={loading}
               className="w-full bg-[#e85a4f] hover:bg-[#d94a3f] text-white font-bold py-3 px-4 rounded-md focus:outline-none focus:shadow-outline transition duration-300 disabled:bg-[#e85a4f]/50 disabled:cursor-not-allowed flex items-center justify-center"
             >
+
               {loading ? (
                 <svg
                   className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
